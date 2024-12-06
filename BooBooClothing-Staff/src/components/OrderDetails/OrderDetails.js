@@ -8,7 +8,7 @@ const OrderDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const order = location.state;
-console.log(order);
+  console.log(order);
   const updateStatus = (status) => {
     console.log(`Order ${order.order_id} status updated to ${status}`);
     // Here you can add API calls to update the order status in the backend
@@ -54,18 +54,30 @@ console.log(order);
           </p>
 
           {/* List all products */}
+          
+
           <div className="products-list">
             <h2>Products Ordered</h2>
+            <div className="format-heading">
+            <p>Product</p>
+            <p>Id</p>
+            <p>Name</p>
+            <p>Individual Price</p>
+            <p>Quantity</p>
+            <p>Price</p>
+          </div>
             {order.orderdProductsList.map((item, index) => {
               console.log("Id:");
               console.log(item.product);
 
-            return  (   <ListProducts
-            key={index}
-                 id={item.product}
-                 quantity={item.quantity}
-               />);
-})}
+              return (
+                <ListProducts
+                  key={index}
+                  id={item.product}
+                  quantity={item.quantity}
+                />
+              );
+            })}
           </div>
 
           <div className="order-actions">

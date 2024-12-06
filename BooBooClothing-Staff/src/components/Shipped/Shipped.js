@@ -40,7 +40,7 @@ const Shipped = () => {
 
         
           return (
-            <Order key={index} order_id={order.order_id} customerName={order.customerName} orderdate={order.orderdate} total = {order.total} items = {totalItems} payment={order.payment} />
+            <Order key={index} order_id={order.order_id} customerName={order.customerName} contact={order.contact} email={order.email} address={order.address} orderStatus={order.orderStatus} orderdate={order.orderdate} orderdProductsList={order.orderdProductsList} total = {order.total} items = {totalItems} payment={order.payment} />
           );
         })}
       </div>
