@@ -1,12 +1,11 @@
 import React from "react";
-import "./Allorders.css";
-import data  from '../assets/ordersData'
+import "./Delivered.css";
+import deliveredOrders  from '../assets/ordersData'
 import Order from "../Order/Order";
 
+const Delivered = () => {
 
-
-const Allorders = () => {
-  
+  const data = deliveredOrders.filter((order) => order.orderStatus === "delivered");
 
   // const [alldelivered.setAllDelivered] =useState([]);
   // const fetchInfor=async ()=>{
@@ -20,7 +19,7 @@ const Allorders = () => {
     <>
     <div className="delivered-order">
       <br/><br/>
-      <h1>All Orders</h1>
+      <h1 id="header">Delivered Orders</h1>
       <div className="listorders-format-main">
         <p>Order ID</p>
         <p>Customer</p>
@@ -51,4 +50,4 @@ const Allorders = () => {
   );
 };
 
-export default Allorders;
+export default Delivered;

@@ -15,8 +15,11 @@ const shippedOrders = ordersData.filter(order => order.orderStatus === "shipped"
   const receivedOrders = ordersData.filter(order => order.orderStatus === "received").length;
   const deliveredOrders = ordersData.filter(order => order.orderStatus === "delivered").length;
   const totalorders = shippedOrders + inProcessOrders + receivedOrders + deliveredOrders;
-  const totalRevenue = ordersData.forEach(order => order.total);  
-
+  
+  let totalRevenue=0;
+  for(let i=0;i<ordersData.length;i++){
+    totalRevenue=+ordersData[i].total;
+  }
 
   const chartData = {
     labels: ["Received","In Process","Shipped",   "Delivered"],
