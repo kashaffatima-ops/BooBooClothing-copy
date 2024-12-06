@@ -1,11 +1,11 @@
 import React from 'react';
-import '../styles/Item.css';
+import '../../styles/Item.css';
 
-const Item = ({ id, name, current_price, original_price, image, sizes, onClick }) => {
+const Item = ({ id, name, current_price, original_price, image, sizes }) => {
   const showOldPrice = current_price < original_price;
 
   return (
-    <div className='item' onClick={onClick}>
+    <div className='item'>
       <img className="item-image" src={image} alt={name} />
       <div className="item-info">
         <h3 className="item-name">{name}</h3>

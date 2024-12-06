@@ -3,7 +3,7 @@ import { Plus } from 'lucide-react';
 import Item from './Item';
 import ItemDetailWindow from './ItemDetailWindow';
 import AddItemWindow from './AddItemWindow';
-import '../styles/ProductList.css';
+import '../../styles/ProductList.css';
 
 const ProductList = () => {
   const [items, setItems] = useState([

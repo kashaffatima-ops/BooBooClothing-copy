@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import '../styles/ItemDetailWindow.css';
+import '../../styles/ItemDetailWindow.css';
 
 const ItemDetailWindow = ({ item, onClose, onDelete, onUpdate }) => {
   const [editedItem, setEditedItem] = useState({ ...item });

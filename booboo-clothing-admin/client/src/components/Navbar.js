@@ -22,10 +22,10 @@ const Navbar = () => {
             <Link to="/product-management">Product Management</Link>
           </li>
           <li>
-            <Link to="/order-management">Order Management</Link>
+            <Link to="/staff-management">Staff Management</Link>
           </li>
           <li>
-            <Link to="/staff-management">Staff Management</Link>
+            <Link to="/browse-items">Browse Items</Link>
           </li>
           <li>
             <Link to="/profile">Profile</Link>
