@@ -1,0 +1,104 @@
+/* General Styles */
+.products-grid {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 100px;
+  }
+  
+  .products-grid h1 {
+    font-size: 60px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .products-grid p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .products-grid hr {
+    margin: 20px auto;
+    width: 50%;
+    border: 1px solid #ccc;
+  }
+  
+  /* Grid Container */
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on larger screens */
+    gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+  }
+  
+  .pagination button {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .pagination button:hover {
+    background: #00bcd4;
+    color: #fff;
+  }
+  
+  .pagination button:disabled {
+    background: #eaeaea;
+    cursor: not-allowed;
+  }
+  
+  .pagination .active {
+    background: #00bcd4;
+    color: #fff;
+  }
+  
+  
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+      gap: 15px; /* Adjust gap for smaller screens */
+      padding: 0 15px; /* Reduce padding */
+    }
+  
+    .products-grid h1 {
+      font-size: 24px;
+    }
+  
+    .products-grid p {
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .grid-container {
+      grid-template-columns: 1fr; /* Single column for small phones */
+      gap: 10px; /* Smaller gap */
+      padding: 0 10px; /* Minimal padding */
+    }
+  
+    .grid-container .item {
+      transform: scale(0.9); /* Optional: Slightly shrink items */
+    }
+  
+    .pagination button {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  }
+  

@@ -1,0 +1,99 @@
+.popular {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px; /* Added padding at the bottom */
+    position: relative; /* To prevent the heading from scrolling */
+    overflow: hidden; /* Ensure nothing overflows */
+  }
+  
+  .popular h1 {
+    color: #171717;
+    font-size: 50px;
+    font-weight: 600;
+    position: relative; /* Keeps heading static */
+    z-index: 1; /* Ensures it's on top of other elements */
+    margin-bottom: 20px; /* Space below heading */
+  }
+  
+  .popular hr {
+    width: 200px;
+    height: 6px;
+    border-radius: 10px;
+    background: #252525;
+    margin-bottom: 30px; /* Adds space between line and items */
+  }
+  
+  .popular-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Ensure no wrapping */
+    gap: 30px;
+    overflow-x: auto; /* Horizontal scrolling */
+    padding: 0 10px; /* Padding to prevent content cut off */
+    margin-top: 30px; /* Add some margin from the heading */
+    justify-content: flex-start; /* Align items to the left */
+    width: 100%; /* Full width of the container */
+    box-sizing: border-box;
+    scroll-snap-type: x mandatory; /* Snap scrolling */
+  }
+  
+  .popular-item .popular-item-card {
+    flex-shrink: 0; /* Prevent shrinking */
+    scroll-snap-align: start; /* Ensures each item snaps to the start */
+    width: 250px; /* Set a fixed width for each item */
+  }
+  
+  /* Responsive Design for Tablets and Small Screens (max-width: 768px) */
+  @media (max-width: 768px) {
+    .popular {
+      gap: 20px;
+      padding: 0 10px; /* Ensure padding to avoid clipping */
+      height: auto;
+    }
+  
+    .popular h1 {
+      font-size: 36px; /* Reduce font size */
+      text-align: center; /* Center align the heading */
+      margin-bottom: 20px; /* Space between heading and items */
+    }
+  
+    .popular hr {
+      width: 150px; /* Smaller line */
+      height: 4px;
+    }
+  
+    .popular-item {
+      gap: 20px;
+      overflow-x: auto;
+      padding: 10px 0; /* Padding for better scroll experience */
+      justify-content: flex-start;
+      max-width: 100%; /* Make sure the items fit inside */
+    }
+  
+    .popular-item .popular-item-card {
+      width: 200px; /* Adjust item size for smaller screens */
+    }
+  }
+  
+  /* Responsive Design for Very Small Devices (max-width: 480px) */
+  @media (max-width: 480px) {
+    .popular h1 {
+      font-size: 28px; /* Further reduce font size */
+    }
+  
+    .popular hr {
+      width: 100px;
+      height: 3px;
+    }
+  
+    .popular-item {
+      gap: 15px; /* Adjust gap for small screens */
+    }
+  
+    .popular-item .popular-item-card {
+      width: 180px; /* Adjust item width further for very small screens */
+    }
+  }
+  

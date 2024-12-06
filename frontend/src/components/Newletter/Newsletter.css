@@ -1,0 +1,115 @@
+.newsletter {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: 0 140px;
+    margin-bottom: 150px;
+    background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
+    gap: 30px;
+}
+
+.newsletter h1 {
+    color: #454545;
+    font-size: 55px;
+    font-weight: 600;
+}
+
+.newsletter p {
+    color: #454545;
+    font-size: 20px;
+}
+
+.newsletter div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    width: 730px;
+    height: 70px;
+    border-radius: 80px;
+    border: 1px solid #e3e3e3;
+}
+
+.newsletter input {
+    width: 500px;
+    margin-left: 30px;
+    border: none;
+    outline: none;
+    color: #616161;
+    font-family: Poppins;
+    font-size: 16px;
+}
+
+.newsletter div button {
+    width: 210px;
+    height: 70px;
+    border-radius: 80px;
+    background: black;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Media Queries for Smaller Screens */
+@media screen and (max-width: 768px) {
+    .newsletter {
+        height: auto;
+        padding: 0 30px;
+    }
+
+    .newsletter h1 {
+        font-size: 40px; /* Smaller heading for smaller screens */
+        text-align: center;
+    }
+
+    .newsletter p {
+        font-size: 18px; /* Smaller font for paragraph */
+        text-align: center;
+    }
+
+    .newsletter div {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .newsletter input {
+        width: 90%; /* Make the input field responsive */
+        font-size: 14px;
+    }
+
+    .newsletter div button {
+        width: 90%; /* Button size to fit the screen */
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .newsletter h1 {
+        font-size: 32px; /* Even smaller heading for very small screens */
+    }
+
+    .newsletter p {
+        font-size: 16px; /* Further decrease paragraph font */
+    }
+
+    .newsletter div {
+        padding: 10px; /* Add padding for better spacing on small screens */
+    }
+
+    .newsletter input {
+        width: 90%; /* Keep input field responsive */
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .newsletter div button {
+        width: 90%; /* Button will be smaller */
+        font-size: 14px;
+        padding: 10px;
+    }
+}

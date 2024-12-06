@@ -1,0 +1,56 @@
+.hero {
+    margin-top: 80px; /* Matches the navbar's height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 550px; /* Fixed height for hero */
+    background-color: white;
+    color: white;
+    text-align: center;
+    background-image: url('../assets/hero.jpg');
+    background-position:0%, 10%;
+    padding: 20px; /* Optional padding for better spacing */
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    padding: 20px;
+  }
+  
+  .hero-title {
+    font-family: "Poppins";
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  }
+  
+  .hero-description {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    color: #f0f0f0;
+  }
+  
+  .hero-button {
+    display: inline-block;
+    background-color: #f39c12;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .hero-button:hover {
+    background-color: #e67e22;
+    transform: scale(1.05); /* Slightly enlarge button */
+  }
+  

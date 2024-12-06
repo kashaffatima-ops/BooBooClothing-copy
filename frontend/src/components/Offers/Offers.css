@@ -1,0 +1,139 @@
+.offers {
+    width: 100%; /* Full width for large screens */
+    max-width: 1200px; /* Constrain max width */
+    height: auto; /* Automatically adjust height based on content */
+    display: flex;
+    flex-direction: row; /* Horizontal layout by default */
+    margin: 50px auto; /* Center the banner on the page */
+    padding: 20px 40px; /* Consistent padding */
+    background: linear-gradient(180deg, #fde1ff, #e1ffea22 60%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Smooth edges */
+    overflow: hidden; /* Prevent any overflow */
+}
+
+.offers-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 20px; /* Space between text and image */
+}
+
+.offers-left h1 {
+    color: #171717;
+    font-size: 48px; /* Adjust font size */
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.offers-left p {
+    color: #171717;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.offers-left button {
+    width: 220px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: #ff4141;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.offers-left button:hover {
+    background-color: #ff2929;
+}
+
+.offers-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.offers-right img {
+    max-width: 100%;
+    height: auto; /* Ensure image scales proportionally */
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 8px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Media Queries */
+
+/* For tablets (screen width less than 768px) */
+@media (max-width: 768px) {
+    .offers {
+        flex-direction: column; /* Stack content vertically */
+        padding: 20px;
+        height: auto;
+        width: 90%; /* Set width to 90% of the screen */
+        margin: 0 auto; /* Center the banner horizontally */
+    }
+
+    .offers-left h1 {
+        font-size: 40px; /* Reduce font size */
+        text-align: center;
+    }
+
+    .offers-left p {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .offers-left button {
+        width: 200px; /* Slightly smaller button */
+        height: 50px;
+        font-size: 18px;
+        margin: 20px auto; /* Center the button */
+    }
+
+    .offers-right img {
+        max-height: 250px; /* Limit image size */
+        width: 100%; /* Ensure it fits within the container */
+        margin-top: 20px;
+    }
+}
+
+/* For mobile (screen width less than 480px) */
+@media (max-width: 480px) {
+    .offers {
+        padding: 10px; /* Reduce padding */
+        width: 90%; /* Ensure banner width is 90% of the screen */
+        margin: 20px auto; /* Center the banner horizontally */
+    }
+
+    .offers-left h1 {
+        font-size: 28px; /* Smaller font size */
+        text-align: center;
+    }
+
+    .offers-left p {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    .offers-left button {
+        width: 180px; /* Compact button */
+        height: 45px;
+        font-size: 16px;
+        margin: 20px auto; /* Center the button */
+    }
+
+    .offers-right img {
+        max-height: 200px; /* Smaller image for mobile */
+        width: auto;
+        margin-top: 20px;
+    }
+}
