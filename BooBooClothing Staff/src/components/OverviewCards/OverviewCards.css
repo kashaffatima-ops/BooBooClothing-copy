@@ -1,0 +1,139 @@
+/* Overview Section */
+.overview-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    gap: 15px;
+}
+
+.overview-card-received {
+    background-color: #70bebe77;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 22%;
+    text-align: center;
+}
+
+.overview-card-inprocess {
+    background-color: #86c5ef7a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 22%;
+    text-align: center;
+}
+.overview-card-shipped {
+    background-color: #fc94aa6f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 22%;
+    text-align: center;
+}
+
+.overview-card-delivered {
+    background-color: #fedf976a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 22%;
+    text-align: center;
+}
+
+
+.overview-card-received h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.overview-card-received p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.overview-card-inprocess h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.overview-card-inprocess p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.overview-card-shipped h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.overview-card-shipped p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.overview-card-delivered h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.overview-card-delivered p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+
+/* Media Query for Tablet Devices */
+@media (max-width: 768px) {
+    .overview-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .overview-card-shipped {
+        width: 100%;
+    }
+    .overview-card-delivered {
+        width: 100%;
+    }
+    .overview-card-received {
+        width: 100%;
+    }
+    .overview-card-inprocess{
+        width: 100%;
+    }
+   
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+    .home-title {
+        font-size: 22px;
+    }
+
+    .overview-card-shipped {
+        padding: 15px;
+    }
+    .overview-card-received {
+        padding: 15px;
+    }
+    .overview-card-delivered {
+        padding: 15px;
+    }
+    .overview-card-inprocess {
+        padding: 15px;
+    }
+    .overview-card h3 {
+        font-size: 16px;
+    }
+
+    .overview-card p {
+        font-size: 20px;
+    }
+
+    .order-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
