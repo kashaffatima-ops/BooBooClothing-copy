@@ -1,0 +1,102 @@
+.container{
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 110vh; /* Full viewport height */
+    background-color: #f4f4f4; /* Optional: Background for better contrast */
+}
+
+.order-details {
+    padding: 20px;
+    width: 70%;
+    margin-top: 80px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .order-details h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .order-details p {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .order-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .order-actions button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .order-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancel-button {
+    background-color: #dc3545;
+  }
+  
+  .cancel-button:hover {
+    background-color: #b02a37;
+  }
+
+  .format-heading {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Same as `.item` for alignment */
+    gap: 0px;
+    width: 100%;
+    color: #222; /* Darker header color */
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      flex-direction: column; /* Stack items vertically */
+      justify-content: flex-start; /* Align items to the top */
+      min-height: 120vh; /* Adjust to viewport height */
+      padding: 10px; /* Add some padding */
+    }
+  
+    .order-details {
+      
+      width: 100%; /* Full width for smaller screens */
+      margin-top: 80px; /* Reduce top margin */
+      padding: 15px; /* Adjust padding for smaller screens */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slightly lighter shadow */
+    }
+  
+    .order-details h1 {
+      font-size: 22px; /* Reduce heading size */
+      margin-bottom: 15px; /* Adjust margin */
+    }
+  
+    .order-details p {
+      font-size: 16px; /* Smaller font for better readability */
+    }
+  
+    .order-actions {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 8px; /* Reduce gap between buttons */
+    }
+  
+    .order-actions button {
+      font-size: 14px; /* Smaller button text */
+      padding: 8px 12px; /* Adjust padding */
+    }
+  }
+  

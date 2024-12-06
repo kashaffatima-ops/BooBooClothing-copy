@@ -1,11 +1,11 @@
 import React from "react";
-import "./Delivered.css";
+import "./Received.css";
 import deliveredOrders  from '../assets/ordersData'
 import Order from "../Order/Order";
 
-const Delivered = () => {
 
-  const data = deliveredOrders.filter((order) => order.orderStatus === "delivered");
+const Received = () => {
+  const data = deliveredOrders.filter((order) => order.orderStatus === "received");
 
   // const [alldelivered.setAllDelivered] =useState([]);
   // const fetchInfor=async ()=>{
@@ -19,7 +19,7 @@ const Delivered = () => {
     <>
     <div className="delivered-order">
       <br/><br/>
-      <h1 id="header">Delivered Orders</h1>
+      <h1>Received Orders</h1>
       <div className="listorders-format-main">
         <p>Order ID</p>
         <p>Customer</p>
@@ -40,7 +40,7 @@ const Delivered = () => {
 
         
           return (
-            <Order key={index} order_id={order.order_id} customerName={order.customerName} orderdate={order.orderdate} total = {order.total} items = {totalItems} payment={order.payment} />
+            <Order key={index} order_id={order.order_id} customerName={order.customerName} contact={order.contact} email={order.email} address={order.address} orderStatus={order.orderStatus} orderdate={order.orderdate} orderdProductsList={order.orderdProductsList} total = {order.total} items = {totalItems} payment={order.payment} />
           );
         })}
       </div>
@@ -48,6 +48,7 @@ const Delivered = () => {
     </div>
     </>
   );
-};
+}
 
-export default Delivered;
+export default Received
+
