@@ -1,0 +1,22 @@
+/* Home Container */
+.home {
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa; /* Light background for contrast */
+}
+
+/* Title */
+.home-title {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+    .home-title {
+        font-size: 22px;
+    }
+
+}
