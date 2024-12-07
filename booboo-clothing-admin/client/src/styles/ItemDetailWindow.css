@@ -19,7 +19,7 @@
   max-width: 800px;
   max-height: 90vh;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -49,6 +49,8 @@
   display: flex;
   gap: 32px;
   padding: 24px;
+  min-height: min-content;
+  flex-wrap: wrap;
 }
 
 .item-detail-image-container {
@@ -161,8 +163,8 @@
     max-width: 100%;
   }
 
-  .size-quantity-section {
-    grid-template-columns: 1fr;
+  .item-detail-info {
+    width: 100%;
   }
 }
 
