@@ -1,6 +1,8 @@
 const express = require('express');
 const { body } = require('express-validator');
 const { registerUser, loginUser } = require('../controllers/userController');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User')
 
 const router = express.Router();
 
@@ -26,5 +28,33 @@ router.post(
   ],
   loginUser
 );
+
+router.post('/findByToken', async (req, res) => {
+  const { token } = req.body; // JWT token sent in the request body
+
+  try {
+    if (!token) {
+      return res.status(400).json({ error: 'Token is required' });
+    }
+
+    // Decode the JWT token to get the user ID
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Use the same secret as in the login function
+    const userId = decoded.id; // Extract the user ID from the decoded token
+    console.log("Decoded token:", decoded);
+    if (!userId) {
+      return res.status(400).json({ error: 'Invalid token' });
+    }
+    console.log("user id incoming is:", userId);
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ userId: user._id });
+  } catch (error) {
+    res.status(500).json({ error: 'Error processing token', details: error.message });
+  }
+});
 
 module.exports = router;

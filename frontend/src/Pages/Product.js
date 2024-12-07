@@ -8,7 +8,7 @@ const Product = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState(""); // State to store the selected size
-  const [cart, setCart] = useState([]); // Simulated cart state
+  const [userId, setUserId] = useState(null); // Store user ID
 
   // Fetch the product details based on the productId
   useEffect(() => {
@@ -25,17 +25,41 @@ const Product = () => {
   }, [productId]);
 
   const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert("Please select a size!");
-      return;
+    // Fetch user ID from the token when adding to cart
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .post(`http://localhost:5000/api/auth/findByToken`, { token })
+        .then((response) => {
+          setUserId(response.data.userId); // Set the user ID from the response
+
+          if (!selectedSize) {
+            alert("Please select a size!");
+            return;
+          }
+
+          if (product.sizes[selectedSize] <= 0) {
+            alert("Selected size is out of stock!");
+            return;
+          }
+
+          const itemToAdd = { itemId: productId, quantity: 1 }; // Add 1 item by default
+          axios
+            .post(`http://localhost:5000/api/cart/add`, { ...itemToAdd, userId: response.data.userId })
+            .then((response) => {
+              alert("Item added to cart successfully!");
+            })
+            .catch((error) => {
+              console.error("Error adding item to cart:", error);
+              alert("Failed to add item to cart.");
+            });
+        })
+        .catch((error) => {
+          console.error("Error fetching user ID:", error);
+        });
+    } else {
+      alert("User not found. Please log in.");
     }
-    if (product.sizes[selectedSize] <= 0) {
-      alert("Selected size is out of stock!");
-      return;
-    }
-    const itemToAdd = { ...product, size: selectedSize };
-    setCart([...cart, itemToAdd]);
-    alert("Item added to cart!");
   };
 
   if (loading) return <div>Loading...</div>;
