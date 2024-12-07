@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
-import './Cart.css';
+import React, { useState } from 'react';
 
 const Cart = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook for navigation
   const [cart, setCart] = useState([
     { id: 1, name: 'Black Hoodie', price: 70.0, quantity: 1 },
     { id: 2, name: 'Sleeveless Shirt', price: 135.0, quantity: 1 },
   ]);
   const [shippingMethod, setShippingMethod] = useState('Free shipping'); // Default to free shipping
   const [shippingCost, setShippingCost] = useState(0);
-
+  
   // Calculate Subtotal, Tax, Total
   const calculateSubtotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -18,14 +15,12 @@ const Cart = () => {
   const subtotal = calculateSubtotal();
   const total = subtotal + shippingCost;
 
-  // Handle quantity change
   const handleQuantityChange = (id, newQuantity) => {
     setCart(cart.map(item =>
       item.id === id ? { ...item, quantity: newQuantity } : item
     ));
   };
 
-  // Handle shipping method change
   const handleShippingChange = (method) => {
     if (method === 'Free shipping') {
       setShippingMethod('Free shipping');
@@ -38,15 +33,6 @@ const Cart = () => {
       setShippingCost(15);
     }
   };
-
-  // Check if the user is logged in (has token in localStorage)
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // If no token, navigate to the login page
-      navigate("/login");
-    }
-  }, [navigate]);
 
   return (
     <div className="cart-container">

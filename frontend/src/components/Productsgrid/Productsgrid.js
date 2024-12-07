@@ -3,25 +3,31 @@ import axios from "axios";
 import "./Productsgrid.css";
 import Item from "../Item/Item";
 
-const ProductsGrid = () => {
+const ProductsGrid = (props) => {
   const [clothingItems, setClothingItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
+  const category = props.category; // Extract category from props
+  console.log("Category prop: ", category); // Debug log
 
   // Fetch data from the backend API
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/clothing") // Replace with your backend URL
       .then((response) => {
-        setClothingItems(response.data.data); // Assuming the backend returns an array in `data`
+        // Filter items based on category
+        const filteredItems = response.data.data.filter(
+          (item) => item.category.toLowerCase() === category.toLowerCase()
+        );
+        setClothingItems(filteredItems); // Set the filtered items based on the category
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  }, []);
+  }, [category]); // Re-fetch when category changes
 
   // Pagination logic
   const totalPages = Math.ceil(clothingItems.length / itemsPerPage);
@@ -38,7 +44,7 @@ const ProductsGrid = () => {
 
   return (
     <div className="products-grid">
-      <h1>Mens</h1>
+      <h1>{category.charAt(0).toUpperCase() + category.slice(1)} Collection</h1>
       <hr />
       <div className="grid-container">
         {currentItems.map((item) => (

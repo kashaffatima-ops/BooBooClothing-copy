@@ -1,9 +1,9 @@
 import React from 'react'
 import ProductsGrid from '../components/Productsgrid/Productsgrid'
-const HomeCategory = () => {
+const HomeCategory = (props) => {
   return (
     <div>
-            <ProductsGrid/>
+            <ProductsGrid category={props.category}/>
 
     </div>
   )
