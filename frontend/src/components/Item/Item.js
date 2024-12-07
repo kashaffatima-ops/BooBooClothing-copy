@@ -1,11 +1,14 @@
 import React from 'react';
 import './Item.css';
+import { Link } from 'react-router-dom';
+
 
 const Item = (props) => {
   console.log('Image URL:', props.image);  // Log the image URL
-
+  const id = props.id;
   return (
     <div className='item'>
+       <Link to={`/product/${id}`} style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'inherit' }}>
 <img
         className="item-image"
         src={props.image} // This will now be the full URL from backend
@@ -19,6 +22,7 @@ const Item = (props) => {
           PKR {props.old_price}
         </div>
       </div>
+      </Link>
     </div>
   );
 }
