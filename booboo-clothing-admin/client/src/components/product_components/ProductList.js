@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Plus } from 'lucide-react';
 import Item from './Item';
 import ItemDetailWindow from './ItemDetailWindow';
@@ -6,27 +7,31 @@ import AddItemWindow from './AddItemWindow';
 import '../../styles/ProductList.css';
 
 const ProductList = () => {
-  const [items, setItems] = useState([
-    { 
-      id: 1, 
-      name: 'T-Shirt', 
-      current_price: 1500, 
-      original_price: 2000, 
-      image: '/tshirt.png', 
-      sizes: { S: 10, M: 15, L: 20 } 
-    },
-    { 
-      id: 2, 
-      name: 'Jeans', 
-      current_price: 3000, 
-      original_price: 3500, 
-      image: '/jeans.jpg', 
-      sizes: { S: 5, M: 10, L: 15 } 
-    },
-  ]);
-
+  const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showAddItem, setShowAddItem] = useState(false);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/clothing');
+        console.log('Full Response:', response);
+        console.log('Response Data:', response.data);
+      
+        // Prepend the base URL to imageName
+        const fetchedItems = response.data.data.map(item => ({
+          ...item,
+          image: `http://localhost:5000/${item.imageName}`
+        }));
+        setItems(fetchedItems); 
+      } catch (error) {
+        console.error('Error fetching items:', error);
+        setItems([]);
+      }
+    };
+  
+    fetchItems();
+  }, []);
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -36,22 +41,34 @@ const ProductList = () => {
     setSelectedItem(null);
   };
 
-  const handleDeleteItem = (id) => {
-    setItems(items.filter(item => item.id !== id));
-    setSelectedItem(null);
+  const handleDeleteItem = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/clothing/${id}`);
+      setItems(items.filter(item => item._id !== id)); 
+      setSelectedItem(null);
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
   };
 
-  const handleUpdateItem = (updatedItem) => {
-    setItems(items.map(item => item.id === updatedItem.id ? updatedItem : item));
-    setSelectedItem(null);
+  const handleUpdateItem = async (updatedItem) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/clothing/${updatedItem._id}`, updatedItem);
+      setItems(items.map(item => item._id === updatedItem._id ? response.data : item));
+      setSelectedItem(null);
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
   };
 
-  const handleAddItem = (newItem) => {
-    setItems(prev => [...prev, {
-      ...newItem,
-      id: prev.length + 1,
-    }]);
-    setShowAddItem(false);
+  const handleAddItem = async (newItem) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/clothing', newItem);
+      setItems(prev => [...prev, response.data]);
+      setShowAddItem(false);
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
   };
 
   return (
@@ -62,35 +79,30 @@ const ProductList = () => {
           Add Item
         </button>
       </div>
-      
-      <div className="item-grid">
-        {items.map(item => (
-          <Item 
-            key={item.id} 
-            {...item} 
-            onClick={() => handleItemClick(item)}
-          />
-        ))}
-      </div>
 
-      {selectedItem && (
-        <ItemDetailWindow 
-          item={selectedItem}
-          onClose={handleCloseDetailWindow}
-          onDelete={handleDeleteItem}
-          onUpdate={handleUpdateItem}
-        />
-      )}
-
+      {/* Conditionally render AddItemWindow when showAddItem is true */}
       {showAddItem && (
         <AddItemWindow 
-          onClose={() => setShowAddItem(false)}
-          onAdd={handleAddItem}
+          onAddItem={handleAddItem} 
+          onClose={() => setShowAddItem(false)} 
         />
       )}
+      
+      <div className="item-grid">
+        {items.length > 0 ? (
+          items.map(item => (
+            <Item 
+              key={item._id}
+              {...item} 
+              onClick={() => handleItemClick(item)}
+            />
+          ))
+        ) : (
+          <p>No items found</p>
+        )}
+      </div>
     </div>
   );
 };
 
 export default ProductList;
-

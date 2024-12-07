@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import axios from 'axios';
 import '../../styles/ItemDetailWindow.css';
 
 const AddItemWindow = ({ onClose, onAdd }) => {
@@ -7,8 +8,10 @@ const AddItemWindow = ({ onClose, onAdd }) => {
     name: '',
     current_price: '',
     original_price: '',
-    image: '/placeholder.svg?height=350&width=300',
-    sizes: { S: 0, M: 0, L: 0 }
+    image: '',
+    sizes: { S: 0, M: 0, L: 0 },
+    category: 'shirts',
+    description: '',
   });
   const [currentSize, setCurrentSize] = useState('S');
 
@@ -31,8 +34,42 @@ const AddItemWindow = ({ onClose, onAdd }) => {
     }));
   };
 
-  const handleSubmit = () => {
-    onAdd(newItem);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setNewItem(prev => ({
+      ...prev,
+      image: file
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append('sizes', JSON.stringify(newItem.sizes));
+    formData.append('Name', newItem.name);  
+    formData.append('category', newItem.category);
+    formData.append('newPrice', newItem.current_price); 
+    formData.append('oldPrice', newItem.original_price); 
+    formData.append('description', newItem.description);
+    formData.append('image', newItem.image);
+
+   
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/clothing', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data);
+      onAdd(response.data); 
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
   };
 
   return (
@@ -44,13 +81,10 @@ const AddItemWindow = ({ onClose, onAdd }) => {
         
         <div className="item-detail-content">
           <div className="item-detail-image-container">
-            <img src={newItem.image} alt="Product preview" className="item-detail-image" />
             <input
-              type="text"
+              type="file"
               name="image"
-              placeholder="Image URL"
-              value={newItem.image}
-              onChange={handleInputChange}
+              onChange={handleImageChange}
               className="form-input mt-4"
             />
           </div>
@@ -73,7 +107,7 @@ const AddItemWindow = ({ onClose, onAdd }) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="current_price">Current Price (PKR)</label>
+                <label htmlFor="current_price">Current Price</label>
                 <input
                   type="number"
                   id="current_price"
@@ -86,7 +120,7 @@ const AddItemWindow = ({ onClose, onAdd }) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="original_price">Original Price (PKR)</label>
+                <label htmlFor="original_price">Original Price</label>
                 <input
                   type="number"
                   id="original_price"
@@ -98,37 +132,67 @@ const AddItemWindow = ({ onClose, onAdd }) => {
                 />
               </div>
 
-              <div className="size-quantity-section">
-                <div className="size-selector">
-                  <label>Size</label>
-                  <select 
-                    value={currentSize} 
-                    onChange={(e) => setCurrentSize(e.target.value)}
-                    className="form-select"
-                  >
-                    {Object.keys(newItem.sizes).map(size => (
-                      <option key={size} value={size}>{size}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Quantity</label>
-                  <input
-                    type="number"
-                    value={newItem.sizes[currentSize]}
-                    onChange={handleSizeQuantityChange}
-                    className="form-input"
-                    min="0"
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="size-S">Size S Quantity</label>
+                <input
+                  type="number"
+                  id="size-S"
+                  value={newItem.sizes.S}
+                  onChange={handleSizeQuantityChange}
+                  className="form-input"
+                />
               </div>
-            </div>
+              
+              <div className="form-group">
+                <label htmlFor="size-M">Size M Quantity</label>
+                <input
+                  type="number"
+                  id="size-M"
+                  value={newItem.sizes.M}
+                  onChange={handleSizeQuantityChange}
+                  className="form-input"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="size-L">Size L Quantity</label>
+                <input
+                  type="number"
+                  id="size-L"
+                  value={newItem.sizes.L}
+                  onChange={handleSizeQuantityChange}
+                  className="form-input"
+                />
+              </div>
 
-            <div className="item-detail-actions">
-              <button className="update-button" onClick={handleSubmit}>
-                Add Item
-              </button>
+              <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select
+                  id="category"
+                  name="category"
+                  value={newItem.category}
+                  onChange={handleInputChange}
+                  className="form-input"
+                >
+                  <option value="shirts">Shirts</option>
+                  <option value="trousers">Trousers</option>
+                  <option value="hoodies">Hoodies</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  value={newItem.description}
+                  onChange={handleInputChange}
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <button onClick={handleSubmit} className="submit-button">Add Item</button>
             </div>
           </div>
         </div>
@@ -138,4 +202,3 @@ const AddItemWindow = ({ onClose, onAdd }) => {
 };
 
 export default AddItemWindow;
-
