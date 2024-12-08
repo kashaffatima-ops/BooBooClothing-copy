@@ -1,15 +1,33 @@
-import React, { useState } from 'react'; // Import useState
 import './NavBar.css'; // Import your CSS for styling
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'; // Add UserOutlined for the profile icon
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+
 
 const NavBar = () => {
+
   const [isActive, setIsActive] = useState(false); // Manage the active state
+  const [menu, setMenu] = useState("home");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track the login state
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
   const toggleMenu = () => {
     setIsActive(!isActive); // Toggle the active state
   };
-  const [menu, setMenu] = useState("home");
+
+  // Check for token in localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true); // User is logged in if token is present
+    } else {
+      setIsLoggedIn(false); // User is not logged in
+    }
+  }, []);
+
+  const handleProfileClick = () => {
+    navigate('/profile'); // Navigate to the profile page
+  };
 
   return (
     
@@ -26,7 +44,18 @@ const NavBar = () => {
           <li onClick={()=>{setMenu("shippedorders")}}><Link to='/shippedorders'>Shipped Orders</Link>{menu ==="shippedorders"?<hr/>: <></>}</li>
           <li onClick={()=>{setMenu("deliveredorders")}}><Link to='/deliveredorders'>Delivered Orders</Link>{menu ==="deliveredorders"?<hr/>: <></>}</li>
 
-          <li><Link className="login-btn" to='/login'>Login</Link></li>
+          {/* Conditionally render Profile button if logged in, else show Login */}
+          {isLoggedIn ? (
+            <li>
+              <button className="profile-btn" onClick={handleProfileClick}>
+                <UserOutlined style={{ fontSize: '20px', color: '#fff' }} />
+              </button>
+            </li>
+          ) : (
+            <li>
+              <Link className="login-btn" to='/login'>Login</Link>
+            </li>
+          )}
         </ul>
         <div className="hamburger" onClick={toggleMenu}> {/* Add onClick event to toggle menu */}
           <span></span>
