@@ -17,20 +17,23 @@ const CreateStaff = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Log the newStaff state to verify the data
+    console.log('New Staff Data:', newStaff);
+  
     try {
       const response = await axios.post('http://localhost:5000/api/staff', newStaff, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
-      // Handle response if needed (e.g., show success message, redirect, etc.)
+  
       console.log('Staff member created:', response.data);
     } catch (error) {
       console.error('Error creating staff member:', error.response?.data || error.message);
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>

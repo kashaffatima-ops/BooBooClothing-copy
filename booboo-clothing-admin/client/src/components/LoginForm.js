@@ -20,7 +20,6 @@ const LoginForm = ({ onSubmit }) => {
     // Check if the user is the hardcoded main admin
     if (email === mainAdminEmail && password === mainAdminPassword) {
       alert("Logged in as Main Admin");
-      //localStorage.setItem('token', 'hardcoded-main-admin-token'); // You can set a custom token for the main admin
       navigate("/product-management");
       return;
     }
