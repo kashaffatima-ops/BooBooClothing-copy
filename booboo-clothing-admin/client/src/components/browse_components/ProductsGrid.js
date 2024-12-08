@@ -3,32 +3,50 @@ import axios from 'axios';
 import Item from '../product_components/Item';
 import '../../styles/ProductsGrid.css';
 
-const ProductsGrid = ({ category }) => {
+const ProductsGrid = ({ category, searchQuery }) => {
   const [clothingItems, setClothingItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filteredItems, setFilteredItems] = useState([]);  // Local filtered items
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 4;
 
   useEffect(() => {
-    axios
-      .get('http://localhost:5000/api/clothing') 
-      .then((response) => {
-        const filteredItems = response.data.data.filter(
-          (item) => item.category.toLowerCase() === category.toLowerCase()
-        );
-        setClothingItems(filteredItems);
+    setLoading(true);
+
+    // Fetch clothing items only once when component mounts
+    const fetchClothingItems = async () => {
+      try {
+        const url = 'http://localhost:5000/api/clothing';
+        const response = await axios.get(url);
+
+        setClothingItems(response.data.data);
+        setFilteredItems(response.data.data);  // Initially show all items
         setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Error fetching data:', error);
         setLoading(false);
-      });
-  }, [category]);
-  
+      }
+    };
 
-  const totalPages = Math.ceil(clothingItems.length / itemsPerPage);
+    fetchClothingItems();
+  }, []);  // Run only once when the component mounts
+
+  // Filter items dynamically whenever searchQuery or clothingItems change
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = clothingItems.filter(item => 
+        item.Name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    } else {
+      setFilteredItems(clothingItems);  // Show all items if no search query
+    }
+  }, [searchQuery, clothingItems]);
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = clothingItems.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -48,10 +66,10 @@ const ProductsGrid = ({ category }) => {
             <Item
               key={item._id}
               id={item._id}
-              name={item.Name}
+              Name={item.Name}
               current_price={item.newPrice}
               original_price={item.oldPrice}
-              image={`http://localhost:5000/${item.imageName}`} 
+              image={`http://localhost:5000/${item.imageName}`}
               sizes={item.sizes}
             />
           ))
@@ -60,7 +78,7 @@ const ProductsGrid = ({ category }) => {
         )}
       </div>
 
-      {/* PAGINATION LOGIC */}
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="pagination">
           <button
