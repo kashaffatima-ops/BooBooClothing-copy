@@ -1,24 +1,51 @@
-import React from "react";
 import "./Shipped.css";
-import deliveredOrders  from '../assets/ordersData'
+import React, { useEffect, useState } from "react";
 import Order from "../Order/Order";
-
+import axios from "axios";
 
 const Shipped = () => {
-  const data = deliveredOrders.filter((order) => order.orderStatus === "shipped");
 
-  // const [alldelivered.setAllDelivered] =useState([]);
-  // const fetchInfor=async ()=>{
-  //   await fetch('http://localhost:').then((res)=>res.json()).then((data)=>{setAllDelivered(data)});
-  // }
-  // useEffect(()=>{
-  //   fetchInfor();
-  // },[])
+  const [orders, setOrders] = useState([]);
 
+  const fetchCustomerName = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/orders/getCustomer/${userId}`);
+      return response.data.user.name; // Return the user's name
+    } catch (error) {
+      console.error("Error fetching customer data:", error);
+      return "Unknown"; // Default value if error occurs
+    }
+  };
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/orders/viewAll");
+        const orderresponse = response.data.allorders;
+
+        const shippedOrders = orderresponse.filter(order => order.status === 'shipped');
+
+        // Fetch customer names for each shipped order
+        const ordersWithCustomerData = await Promise.all(
+          shippedOrders.map(async (order) => {
+            const customerName = await fetchCustomerName(order.userId);
+            console.log(customerName);
+            return { ...order, customerName }; // Merge customer name into order data
+          })
+        );
+
+        setOrders(ordersWithCustomerData);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+  
   return (
-    <>
     <div className="delivered-order">
-      <br/><br/>
+      <br />
+      <br />
       <h1>Shipped Orders</h1>
       <div className="listorders-format-main">
         <p>Order ID</p>
@@ -27,28 +54,30 @@ const Shipped = () => {
         <p>Total</p>
         <p>Items</p>
         <p>Payment</p>
-        </div>
+      </div>
 
       <div className="listorder-allorders">
         <hr />
-        {data.map((order, index) => {
-         
-          let totalItems = order.orderdProductsList.reduce(
+        {orders.map((order) => {
+          const totalItems = order.items.reduce(
             (acc, item) => acc + item.quantity,
             0
           );
-
-        
           return (
-            <Order key={index} order_id={order.order_id} customerName={order.customerName} contact={order.contact} email={order.email} address={order.address} orderStatus={order.orderStatus} orderdate={order.orderdate} orderdProductsList={order.orderdProductsList} total = {order.total} items = {totalItems} payment={order.payment} />
+            <Order
+              key={order._id}
+              order_id={order._id}
+              customerName={order.customerName} // Updated to use fetched customer name
+              orderdate={new Date(order.createdAt).toLocaleDateString()}
+              total={order.totalAmount}
+              items={totalItems}
+              payment={order.status}
+            />
           );
         })}
       </div>
-      
     </div>
-    </>
   );
-}
+};
 
 export default Shipped;
-
