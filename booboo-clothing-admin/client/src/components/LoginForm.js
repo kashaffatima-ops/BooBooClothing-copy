@@ -1,29 +1,58 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import '../styles/LoginForm.css';
+import axios from 'axios';
 
 const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  
-  const navigate = useNavigate(); 
+
+  const navigate = useNavigate();
+
+  // Hardcoded Main Admin credentials
+  const mainAdminEmail = "faizrh209@gmail.com";
+  const mainAdminPassword = "r";
 
   const handleLogin = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    if(email === "faizrh209@gmail.com" && password === "r") {
-      alert("Logged In");
-      navigate("/product-management"); 
-    } else {
+    // Check if the user is the hardcoded main admin
+    if (email === mainAdminEmail && password === mainAdminPassword) {
+      alert("Logged in as Main Admin");
+      //localStorage.setItem('token', 'hardcoded-main-admin-token'); // You can set a custom token for the main admin
+      navigate("/product-management");
+      return;
+    }
+
+    // If not the main admin, proceed with the regular login flow
+    try {
+      const response = await axios.post('http://localhost:5000/api/staff/login', {
+        email,
+        password,
+      });
+
+      const { token, user } = response.data;
+      localStorage.setItem('token', token); // Store token in local storage or cookie
+
+      if (user.role === 'admin') {
+        alert("Logged in as Admin");
+        navigate("/product-management");
+      } else if (user.role === 'staff') {
+        alert("Logged in as Staff");
+        navigate("/browse-items");
+      } else {
+        setError("Unknown role. Please contact the administrator.");
+      }
+    } catch (error) {
       setError("Invalid credentials or server error.");
     }
   };
 
   return (
     <div className="login-container">
-      <h1>Admin Login</h1>
-      <form onSubmit={handleLogin} className="login-form"> 
+      <h1>Admin/Staff Login</h1>
+      <form onSubmit={handleLogin} className="login-form">
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -43,7 +72,7 @@ const LoginForm = ({ onSubmit }) => {
           required
         />
         <button type="submit">Login</button>
-        
+
         {error && <p className="error-message">{error}</p>}
       </form>
     </div>

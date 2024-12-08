@@ -6,7 +6,7 @@ import '../../styles/ProductsGrid.css';
 const ProductsGrid = ({ category, searchQuery }) => {
   const [clothingItems, setClothingItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filteredItems, setFilteredItems] = useState([]);  // Local filtered items
+  const [filteredItems, setFilteredItems] = useState([]);  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
@@ -29,7 +29,7 @@ const ProductsGrid = ({ category, searchQuery }) => {
     };
 
     fetchClothingItems();
-  }, []);  // Run only once when the component mounts
+  }, []); 
 
   // Filter items dynamically whenever searchQuery or clothingItems change
   useEffect(() => {

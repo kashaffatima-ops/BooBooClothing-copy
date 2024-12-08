@@ -4,9 +4,10 @@ import axios from 'axios';
 const CreateStaff = () => {
   const [newStaff, setNewStaff] = useState({
     name: '',
-    position: '',
+    role: '',
     email: '',
     phone: '',
+    password: '', // Add password field here
   });
 
   const handleInputChange = (e) => {
@@ -16,22 +17,25 @@ const CreateStaff = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await axios.post('http://localhost:5000/api/staff', newStaff, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
+
+      // Handle response if needed (e.g., show success message, redirect, etc.)
+      console.log('Staff member created:', response.data);
     } catch (error) {
       console.error('Error creating staff member:', error.response?.data || error.message);
     }
   };
-  
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Create New Staff Member</h2>
+      
       <div className="form-group">
         <label htmlFor="name">Name</label>
         <input
@@ -43,17 +47,22 @@ const CreateStaff = () => {
           onChange={handleInputChange}
         />
       </div>
+      
       <div className="form-group">
-        <label htmlFor="position">Position</label>
-        <input
-          id="position"
-          name="position"
-          type="text"
-          required
-          value={newStaff.position}
-          onChange={handleInputChange}
-        />
+       <label htmlFor="role">Role</label>
+       <select
+         id="role"
+         name="role"  
+         required
+         value={newStaff.role}  
+         onChange={handleInputChange}
+       >
+         <option value="">Select Role</option>
+         <option value="admin">Admin</option>
+         <option value="staff">Staff</option>
+       </select>
       </div>
+
       <div className="form-group">
         <label htmlFor="email">Email</label>
         <input
@@ -65,6 +74,7 @@ const CreateStaff = () => {
           onChange={handleInputChange}
         />
       </div>
+      
       <div className="form-group">
         <label htmlFor="phone">Phone</label>
         <input
@@ -76,6 +86,19 @@ const CreateStaff = () => {
           onChange={handleInputChange}
         />
       </div>
+
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          value={newStaff.password}
+          onChange={handleInputChange}
+        />
+      </div>
+
       <button type="submit" className="btn btn-primary">
         Create Staff Member
       </button>
