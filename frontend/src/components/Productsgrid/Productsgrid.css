@@ -67,6 +67,19 @@
     color: #fff;
   }
   
+  .search-bar {
+    margin: 10px 0;
+    text-align: center;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
   
 /* Responsive Styles */
 @media (max-width: 768px) {
