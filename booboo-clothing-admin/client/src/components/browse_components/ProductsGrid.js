@@ -6,7 +6,7 @@ import '../../styles/ProductsGrid.css';
 const ProductsGrid = ({ category, searchQuery }) => {
   const [clothingItems, setClothingItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filteredItems, setFilteredItems] = useState([]);  
+  const [filteredItems, setFilteredItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
@@ -29,19 +29,24 @@ const ProductsGrid = ({ category, searchQuery }) => {
     };
 
     fetchClothingItems();
-  }, []); 
+  }, []);
 
-  // Filter items dynamically whenever searchQuery or clothingItems change
+  // Filter items dynamically whenever searchQuery, category, or clothingItems change
   useEffect(() => {
+    let filtered = clothingItems;
+
+    if (category) {
+      filtered = filtered.filter(item => item.category.toLowerCase() === category.toLowerCase());
+    }
+
     if (searchQuery) {
-      const filtered = clothingItems.filter(item => 
+      filtered = filtered.filter(item => 
         item.Name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setFilteredItems(filtered);
-    } else {
-      setFilteredItems(clothingItems);  // Show all items if no search query
     }
-  }, [searchQuery, clothingItems]);
+
+    setFilteredItems(filtered);
+  }, [searchQuery, category, clothingItems]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
