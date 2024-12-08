@@ -8,7 +8,7 @@ const ViewUpdateDeleteStaff = () => {
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [updatedStaffData, setUpdatedStaffData] = useState({
     name: '',
-    role: '', 
+    role: '', // Role corresponds to position
     email: '',
     phone: '',
   });
@@ -16,14 +16,20 @@ const ViewUpdateDeleteStaff = () => {
   useEffect(() => {
     const fetchStaff = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/staff');
-        setStaffList(response.data.data); // Ensure the data has name, role, email, phone
+        const token = localStorage.getItem('token'); // Retrieve token from local storage
+        const response = await axios.get('http://localhost:5000/api/staff', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          },
+        });
+        setStaffList(response.data.data);
+        
       } catch (err) {
-        setError('Failed to fetch staff data');
+        setError('Failed to fetch staff data' , err);
       } finally {
         setLoading(false);
       }
-    };
+    };    
 
     fetchStaff();
   }, []);
