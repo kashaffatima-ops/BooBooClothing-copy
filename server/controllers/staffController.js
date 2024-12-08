@@ -45,11 +45,13 @@ const loginStaff = async (req, res) => {
 };
 
 const createStaff = async (req, res) => {
-  const { email, password, role } = req.body;
+  const { name, email, password, role, phone } = req.body;
 
   // Check if all required fields are provided
-  if (!email || !password || !role) {
-    return res.status(400).json({ message: "Email, password, and role are required." });
+  if (!name || !email || !password || !role || !phone) {
+    return res.status(400).json({ 
+      message: "Name, email, password, role, and phone are required." 
+    });
   }
 
   try {
@@ -61,9 +63,11 @@ const createStaff = async (req, res) => {
 
     // Create a new staff member
     const newStaff = new Staff({
+      name,
       email,
       password,
-      role, // Role will come from the form now
+      role,
+      phone,
     });
 
     // Save the new staff member to the database
@@ -72,15 +76,22 @@ const createStaff = async (req, res) => {
     res.status(201).json({
       message: "Staff member created successfully",
       staff: {
+        id: newStaff._id,
+        name: newStaff.name,
         email: newStaff.email,
         role: newStaff.role,
+        phone: newStaff.phone,
       },
     });
   } catch (error) {
     console.error("Error creating staff member:", error);
-    res.status(500).json({ message: "Error creating staff member", error: error.message });
+    res.status(500).json({ 
+      message: "Error creating staff member", 
+      error: error.message 
+    });
   }
 };
+
 
 const getAllStaff = async (req, res) => {
   try {

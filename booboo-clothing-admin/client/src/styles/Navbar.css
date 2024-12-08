@@ -99,6 +99,19 @@ background: #FF4141;
   border-radius: 5px;
 }
 
+.logout-button {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.logout-button:hover {
+  color: red;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav-links {

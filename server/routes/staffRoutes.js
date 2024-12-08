@@ -1,15 +1,15 @@
 const express = require('express');
-const staffController = require('../controllers/staffController'); 
+const staffController = require('../controllers/staffController');
+const verifyToken = require('../middlewares/authMiddlewares'); // Import the middleware
 const router = express.Router();
 
+// Public routes
 router.post('/login', staffController.loginStaff);
 
-router.post('/', staffController.createStaff);
-
-router.get('/', staffController.getAllStaff);
-
-router.put('/:id', staffController.updateStaff);
-
-router.delete('/:id', staffController.deleteStaff);
+// Protected routes
+router.post('/', verifyToken, staffController.createStaff);
+router.get('/', verifyToken, staffController.getAllStaff);
+router.put('/:id', verifyToken, staffController.updateStaff);
+router.delete('/:id', verifyToken, staffController.deleteStaff);
 
 module.exports = router;
