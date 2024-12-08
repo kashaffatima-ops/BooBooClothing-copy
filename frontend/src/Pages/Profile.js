@@ -132,7 +132,7 @@ const ProfilePage = () => {
               <p><strong>Order ID:</strong> {order._id}</p>
               <p><strong>Order Date:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
               <p><strong>Status:</strong> {order.status.charAt(0).toUpperCase() + order.status.slice(1)}</p>
-              <p><strong>Total:</strong> ${order.totalAmount.toFixed(2)}</p>
+              <p><strong>Total:</strong> PKR {order.totalAmount.toFixed(2)}</p>
               <p><strong>Items:</strong></p>
               <ul className="item-list">
                 {order.items.map((item) => (
