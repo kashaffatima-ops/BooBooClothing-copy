@@ -6,7 +6,8 @@ import ProductManagement from "./pages/ProductManagement";
 import StaffManagement from "./pages/StaffManagement";
 import BrowseItems from "./pages/BrowseItems";
 import Search from "./pages/Search";
-import ProtectedRoute from "./components/ProtectedRoute"; // Import the route guard
+import SaleManagement from "./pages/SaleManagement";
+import ProtectedRoute from "./components/ProtectedRoute"; 
 import './index.css';
 
 const App = () => {
@@ -44,6 +45,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Search />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/sale-management"
+          element={
+            <ProtectedRoute>
+              <SaleManagement />
             </ProtectedRoute>
           }
         />
