@@ -25,40 +25,55 @@ const Login = () => {
     if (isLogin) {
       // Handle login logic
       try {
-        const response = await axios.post("http://localhost:5000/api/auth/login", formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const { token } = response.data;
         // Store the token in localStorage
         localStorage.setItem("token", token);
         console.log("Logged in successfully");
-
+  
         // Redirect to the home page ("/")
         navigate('/');
       } catch (error) {
-        console.error("Login failed", error);
+        if (error.response && error.response.status === 401) {
+          // If backend sends a 401 status for wrong credentials
+          alert("Invalid email or password. Please try again.");
+        } else {
+          // Other errors (e.g., server down)
+          console.error("Login failed", error);
+          alert("Your Email or Password is incorrect! Try again.");
+        }
       }
     } else {
-      // Handle signup logic (similar to login logic)
       // Handle signup logic
-    try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log("Signed up successfully");
-      
-      // Redirect to login or home page
-      navigate('/'); // Or navigate('/') if you want to go to the home page
-    } catch (error) {
-      console.error("Signup failed", error);
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/register",
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("Signed up successfully");
+  
+        // Redirect to login or home page
+        navigate('/'); // Or navigate('/') if you want to go to the home page
+      } catch (error) {
+        console.error("Signup failed", error);
+        alert("An error occurred during signup. Please try again.");
+      }
     }
-   }
-    
   };
+  
 
   return (
     <div className="auth-container">

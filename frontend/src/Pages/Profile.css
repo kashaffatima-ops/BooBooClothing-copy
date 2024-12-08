@@ -1,0 +1,154 @@
+/* Profile Page Styles */
+.profile-page {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    margin-top: 120px;
+    min-height: 600px;
+  }
+  
+  .profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-icon {
+    margin-bottom: 10px;
+  }
+  
+  .heading {
+    font-size: 32px;
+    color: #333;
+  }
+  
+  .profile-details {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .profile-details p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .logout-button {
+    background-color: #f44336;
+  }
+  
+  .logout-button:hover {
+    background-color: #e53935;
+  }
+  
+  .error-message,
+  .success-message {
+    color: #d9534f;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Password Reset Section */
+  .password-reset-box {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .password-reset-box input {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .password-reset-box button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .password-reset-box button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Order History Section */
+  .orders-list {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .orders-list h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .orders-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .orders-list li {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .orders-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .orders-list p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .orders-list .item-list {
+    margin-left: 20px;
+    font-size: 14px;
+  }
+  
+  .orders-list .item-list li {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .orders-list .item-list li span {
+    font-weight: bold;
+  }
+  
+  .orders-list .total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-top: 10px;
+  }
+  

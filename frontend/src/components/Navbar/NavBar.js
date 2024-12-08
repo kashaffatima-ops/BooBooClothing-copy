@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'; // Import useState and useEffect
+import React, { useState, useEffect } from 'react';
 import './NavBar.css'; // Import your CSS for styling
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'; // Add UserOutlined for the profile icon
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const NavBar = () => {
   const [isActive, setIsActive] = useState(false); // Manage the active state
   const [menu, setMenu] = useState("home");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track the login state
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
   const toggleMenu = () => {
     setIsActive(!isActive); // Toggle the active state
@@ -21,6 +22,10 @@ const NavBar = () => {
       setIsLoggedIn(false); // User is not logged in
     }
   }, []); // Empty dependency array ensures this runs once when the component mounts
+
+  const handleProfileClick = () => {
+    navigate('/profile'); // Navigate to the profile page
+  };
 
   return (
     <div className="container-nav">
@@ -41,11 +46,23 @@ const NavBar = () => {
             <Link to='/kids'>Kids</Link>
             {menu === "kids" ? <hr /> : <></>}
           </li>
-          <li><Link to='/cart'><ShoppingCartOutlined style={{ color: '#000', fontSize: '25px' }} /></Link></li>
+          <li>
+            <Link to='/cart'>
+              <ShoppingCartOutlined style={{ color: '#000', fontSize: '25px' }} />
+            </Link>
+          </li>
 
-          {/* Conditionally render Login button based on token */}
-          {!isLoggedIn && (
-            <li><Link className="login-btn" to='/login'>Login</Link></li>
+          {/* Conditionally render Profile button if logged in, else show Login */}
+          {isLoggedIn ? (
+            <li>
+              <button className="profile-btn" onClick={handleProfileClick}>
+                <UserOutlined style={{ fontSize: '20px', color: '#fff' }} />
+              </button>
+            </li>
+          ) : (
+            <li>
+              <Link className="login-btn" to='/login'>Login</Link>
+            </li>
           )}
         </ul>
         <div className="hamburger" onClick={toggleMenu}> {/* Add onClick event to toggle menu */}

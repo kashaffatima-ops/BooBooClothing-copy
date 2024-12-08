@@ -57,6 +57,7 @@ exports.viewOrders = async (req, res) => {
     const orders = await Order.find({ userId }).populate('items.itemId');
     res.status(200).json({ orders });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Failed to retrieve orders', details: error.message });
   }
 };

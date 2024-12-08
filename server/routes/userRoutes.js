@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 const { registerUser, loginUser } = require('../controllers/userController');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User')
+const { getUserProfile, updatePassword } = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -56,5 +57,19 @@ router.post('/findByToken', async (req, res) => {
     res.status(500).json({ error: 'Error processing token', details: error.message });
   }
 });
+
+router.get('/profile', getUserProfile);
+
+// @route POST /api/auth/update-password
+// @desc Update user password
+router.post(
+  '/update-password',
+  [
+    body('newPassword')
+      .isLength({ min: 6 })
+      .withMessage('Password must be at least 6 characters'),
+  ],
+  updatePassword
+);
 
 module.exports = router;
