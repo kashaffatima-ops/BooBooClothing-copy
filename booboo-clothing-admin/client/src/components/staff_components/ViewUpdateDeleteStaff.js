@@ -8,7 +8,7 @@ const ViewUpdateDeleteStaff = () => {
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [updatedStaffData, setUpdatedStaffData] = useState({
     name: '',
-    position: '',
+    role: '', // Role corresponds to position
     email: '',
     phone: '',
   });
@@ -16,14 +16,20 @@ const ViewUpdateDeleteStaff = () => {
   useEffect(() => {
     const fetchStaff = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/staff');
+        const token = localStorage.getItem('token'); // Retrieve token from local storage
+        const response = await axios.get('http://localhost:5000/api/staff', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          },
+        });
         setStaffList(response.data.data);
+        
       } catch (err) {
-        setError('Failed to fetch staff data');
+        setError('Failed to fetch staff data' , err);
       } finally {
         setLoading(false);
       }
-    };
+    };    
 
     fetchStaff();
   }, []);
@@ -31,8 +37,8 @@ const ViewUpdateDeleteStaff = () => {
   const handleStaffSelect = (staff) => {
     setSelectedStaff(staff);
     setUpdatedStaffData({
-      name: staff.name,
-      position: staff.position,
+      name: staff.name,  // Ensure that name, phone, role are available in response
+      role: staff.role,
       email: staff.email,
       phone: staff.phone,
     });
@@ -107,8 +113,8 @@ const ViewUpdateDeleteStaff = () => {
               <label>Position</label>
               <input
                 type="text"
-                name="position"
-                value={updatedStaffData.position}
+                name="role"
+                value={updatedStaffData.role}  // "role" instead of "position"
                 onChange={handleInputChange}
                 required
               />
@@ -126,7 +132,7 @@ const ViewUpdateDeleteStaff = () => {
             <div className="form-group">
               <label>Phone</label>
               <input
-                type="tel"
+                type="text"
                 name="phone"
                 value={updatedStaffData.phone}
                 onChange={handleInputChange}
@@ -160,7 +166,7 @@ const ViewUpdateDeleteStaff = () => {
             staffList.map((staff) => (
               <tr key={staff._id}>
                 <td>{staff.name}</td>
-                <td>{staff.position}</td>
+                <td>{staff.role}</td>  {/* Ensure role is used for position */}
                 <td>{staff.email}</td>
                 <td>{staff.phone}</td>
                 <td>
