@@ -39,18 +39,9 @@ const Navbar = () => {
           <li>
             <Link to="/sale-management">Sale Management</Link>
           </li>
-                  {/* Conditionally render Profile button if logged in, else show Login */}
-                  {isLoggedIn ? (
-            <li>
-              <button className="profile-btn" onClick={handleProfileClick}>
-                <UserOutlined style={{ fontSize: '20px', color: '#fff' }} />
-              </button>
-            </li>
-          ) : (
-            <li>
-              <Link className="login-btn" to='/login'>Login</Link>
-            </li>
-          )}
+          <li>
+            <button className="logout-button" onClick={handleLogout}>Logout</button> 
+          </li>
         </ul>
       </nav>
     </div>
