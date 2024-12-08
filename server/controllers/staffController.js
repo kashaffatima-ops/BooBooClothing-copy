@@ -1,6 +1,7 @@
 const Staff = require('../models/Staff');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 const loginStaff = async (req, res) => {
   console.log('Login request received'); 
@@ -132,10 +133,37 @@ const deleteStaff = async (req, res) => {
   }
 };
 
+const getStaffByEmail = async (req, res) => {
+  const { email } = req.params;  // Get email from the request parameters
+
+  // Check if the email is provided
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required.' });
+  }
+
+  try {
+    // Find the staff member by email
+    const staffMember = await Staff.findOne({ email });
+
+    // If no staff member found, return a 404 error
+    if (!staffMember) {
+      return res.status(404).json({ message: 'Staff member not found.' });
+    }
+
+    // Return the staff member's details
+    res.status(200).json({ success: true, data: staffMember });
+  } catch (error) {
+    // Handle any server errors
+    res.status(500).json({ message: 'Server error', details: error.message });
+  }
+};
+
+
 module.exports = {
   loginStaff,
   createStaff,
   getAllStaff,
   updateStaff,
   deleteStaff,
+  getStaffByEmail,
 };

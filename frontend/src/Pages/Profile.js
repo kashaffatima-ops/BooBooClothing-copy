@@ -13,12 +13,16 @@ const ProfilePage = () => {
   const [showOrders, setShowOrders] = useState(false); // State to toggle orders display
 
   useEffect(() => {
+    console.log("Hi1");
     const token = localStorage.getItem("token");
+    console.log("Hi2");
     if (!token) {
       alert("You need to be logged in to access your profile.");
       window.location.href = "/login";
       return;
     }
+console.log(token);
+console.log("Hi");
 
     // Fetch user profile
     axios
