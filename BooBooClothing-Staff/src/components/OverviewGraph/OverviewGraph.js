@@ -72,7 +72,7 @@ const shippedOrders = ordersData.filter(order => order.orderStatus === "shipped"
           <div className="revenue-card">
           <FaCoins size={40} color="#ffd700" />
           <h3>Total Revenue</h3>
-            <p>${totalRevenue}</p>
+            <p>PKR {totalRevenue}</p>
           </div>
         </div>
 
