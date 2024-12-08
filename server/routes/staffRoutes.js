@@ -7,9 +7,9 @@ const router = express.Router();
 router.post('/login', staffController.loginStaff);
 
 // Protected routes
-router.post('/', verifyToken, staffController.createStaff);
-router.get('/', verifyToken, staffController.getAllStaff);
-router.put('/:id', verifyToken, staffController.updateStaff);
-router.delete('/:id', verifyToken, staffController.deleteStaff);
+router.post('/',  staffController.createStaff);
+router.get('/',  staffController.getAllStaff);
+router.put('/:id',  staffController.updateStaff);
+router.delete('/:id',  staffController.deleteStaff);
 
 module.exports = router;

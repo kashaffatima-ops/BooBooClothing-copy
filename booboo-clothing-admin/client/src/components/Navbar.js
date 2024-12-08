@@ -12,8 +12,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove the JWT token
+    localStorage.removeItem('isMainAdmin'); // Remove the main admin flag
     navigate('/'); // Redirect to the login page
   };
+  
 
   return (
     <div className="container-nav">
