@@ -12,8 +12,27 @@ const getAllClothingItems = async (req, res) => {
 };
 
 // Get a clothing item by ID
+// const getClothingItemById = async (req, res) => {
+
+//   try {
+//     const clothingItem = await ClothingItem.findById(req.params.id);
+
+//     if (!clothingItem) {
+//       return res.status(404).json({ success: false, message: 'Clothing item not found' });
+//     }
+
+//     res.status(200).json({ success: true, data: clothingItem });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+
 const getClothingItemById = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ success: false, message: 'Invalid clothing item ID' });
+    }
+
     const clothingItem = await ClothingItem.findById(req.params.id);
 
     if (!clothingItem) {

@@ -66,16 +66,30 @@ exports.viewOrderById = async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    const order = await Order.findById(orderId).populate('items.itemId');
+    const order = await Order.findById(orderId);
     if (!order) {
       return res.status(404).json({ error: 'Order not found' });
     }
 
+    console.log(order);
     res.status(200).json({ order });
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve order', details: error.message });
   }
 };
+
+// exports.viewAllOrders = async (req, res) => {
+//   try {
+//     const allorders = await Order.find();
+//     console.log("Fetched Orders:", allorders); // Debugging log
+//     res.status(200).json({ allorders });
+//   } catch (error) {
+//     console.error("Error fetching orders:", error.message); // Log the error
+//     console.error("Stack Trace:", error.stack); // Log the stack trace
+//     res.status(500).json({ error: 'Failed to retrieve orders', details: error.message });
+//   }
+// };
+
 
 // Update the status of an order
 exports.updateOrderStatus = async (req, res) => {
@@ -99,5 +113,33 @@ exports.updateOrderStatus = async (req, res) => {
     res.status(200).json({ message: 'Order status updated successfully', order });
   } catch (error) {
     res.status(500).json({ error: 'Failed to update order status', details: error.message });
+  }
+};
+
+// View all current orders
+exports.viewAllOrders = async (req, res) => {
+  try {
+    const allorders = await Order.find();
+    console.log("Fetched Orders:", allorders); // Debugging log
+    res.status(200).json({ allorders });
+  } catch (error) {
+    console.error("Error fetching orders:", error.message); // Log the error
+    console.error("Stack Trace:", error.stack); // Log the stack trace
+    res.status(500).json({ error: 'Failed to retrieve orders', details: error.message });
+  }
+};
+
+// Fetch complete customer data by ID
+exports.getCustomer = async (req, res) => {
+  const userId = req.params.userId; // Extract userId as a string
+  try {
+    const user = await User.findById(userId); // Fetch user, exclude password
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("Error fetching user data:", error.message);
+    res.status(500).json({ error: 'Failed to retrieve user data', details: error.message });
   }
 };
