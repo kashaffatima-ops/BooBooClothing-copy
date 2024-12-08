@@ -37,7 +37,10 @@ const Navbar = () => {
             <Link to="/search">Search</Link>
           </li>
           <li>
-            <button className="logout-button" onClick={handleLogout}>Logout</button> {/* Add Logout button */}
+            <Link to="/sale-management">Sale Management</Link>
+          </li>
+          <li>
+            <button className="logout-button" onClick={handleLogout}>Logout</button> 
           </li>
         </ul>
       </nav>
