@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const User = require('../models/User');
 const ClothingItem = require('../models/ClothingItem');
+const Product = require('../models/ClothingItem');
 
 // Create a new order
 exports.createOrder = async (req, res) => {
@@ -97,6 +98,9 @@ exports.updateOrderStatus = async (req, res) => {
   const { orderId } = req.params;
   const { status } = req.body;
 
+console.log(orderId);
+console.log(status);
+
   try {
     if (!['pending', 'shipped', 'delivered', 'canceled'].includes(status)) {
       return res.status(400).json({ error: 'Invalid status' });
@@ -144,3 +148,45 @@ exports.getCustomer = async (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve user data', details: error.message });
   }
 };
+
+//fetching all products for order
+// exports.getProductsByIds = async (req, res) => {
+//   const { ids } = req.body; // Extract product IDs from request body
+
+//   try {
+//     if (!ids || ids.length === 0) {
+//       return res.status(400).json({ error: 'No product IDs provided' });
+//     }
+
+//     // Fetch products matching the provided IDs
+//     const products = await ClothingItem.find({ _id: { $in: ids } });
+
+//     if (products.length === 0) {
+//       return res.status(404).json({ error: 'No products found for the provided IDs' });
+//     }
+
+//     res.status(200).json({ products });
+//   } catch (error) {
+//     console.error('Error fetching products:', error.message);
+//     res.status(500).json({ error: 'Failed to retrieve products', details: error.message });
+//   }
+// };
+exports.getProductsByIds = async (req, res) => {
+  const { ids } = req.body; // Ensure the request body contains `ids`
+
+  if (!Array.isArray(ids) || ids.length === 0) {
+    return res.status(400).json({ error: 'Invalid or missing IDs in request body' });
+  }
+
+  try {
+    const products = await Product.find({ _id: { $in: ids } }); // Fetch products with matching IDs
+    if (products.length === 0) {
+      return res.status(404).json({ error: 'No products found for the given IDs' });
+    }
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error('Error fetching products:', error.message);
+    res.status(500).json({ error: 'Failed to fetch products', details: error.message });
+  }
+};
+

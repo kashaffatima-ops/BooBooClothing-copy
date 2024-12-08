@@ -22,7 +22,7 @@ const NavBar = () => {
           <li onClick={()=>{setMenu("home")}}><Link to='/'>Home</Link>{menu ==="home"?<hr/>: <></>}</li>
           <li onClick={()=>{setMenu("chatforum")}}><Link to='/chatforum'>Chat Forum</Link>{menu ==="chatforum"?<hr/>: <></>}</li>
           <li onClick={()=>{setMenu("allorders")}}><Link to='/allorders'>All Orders</Link>{menu ==="allorders"?<hr/>: <></>}</li>
-          <li onClick={()=>{setMenu("receivedorders")}}><Link to='/receivedorders'>Receiveed Orders</Link>{menu ==="receivedorders"?<hr/>: <></>}</li>
+          <li onClick={()=>{setMenu("receivedorders")}}><Link to='/receivedorders'>Cancelled Orders</Link>{menu ==="receivedorders"?<hr/>: <></>}</li>
           <li onClick={()=>{setMenu("inprocessorders")}}><Link to='/inprocessorders'>In Process Orders</Link>{menu ==="inprocessorders"?<hr/>: <></>}</li>
           <li onClick={()=>{setMenu("shippedorders")}}><Link to='/shippedorders'>Shipped Orders</Link>{menu ==="shippedorders"?<hr/>: <></>}</li>
           <li onClick={()=>{setMenu("deliveredorders")}}><Link to='/deliveredorders'>Delivered Orders</Link>{menu ==="deliveredorders"?<hr/>: <></>}</li>
