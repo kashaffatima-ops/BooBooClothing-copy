@@ -9,14 +9,14 @@ const BrowseItemsContent = () => {
     <div className="browse-items-container">
       <div className="categories-sidebar">
         <button 
-          className={`category-btn ${selectedCategory === 'mens' ? 'active' : ''}`}  // Adjust for lowercase
-          onClick={() => setSelectedCategory('mens')}  // Set category as 'mens'
+          className={`category-btn ${selectedCategory === 'mens' ? 'active' : ''}`}
+          onClick={() => setSelectedCategory('mens')}
         >
           Men
         </button>
         <button 
-          className={`category-btn ${selectedCategory === 'kids' ? 'active' : ''}`}  // Adjust for lowercase
-          onClick={() => setSelectedCategory('kids')}  // Set category as 'kids'
+          className={`category-btn ${selectedCategory === 'kids' ? 'active' : ''}`}
+          onClick={() => setSelectedCategory('kids')}
         >
           Kids
         </button>
