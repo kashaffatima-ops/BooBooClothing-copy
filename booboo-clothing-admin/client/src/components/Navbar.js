@@ -28,7 +28,7 @@ const Navbar = () => {
             <Link to="/browse-items">Browse Items</Link>
           </li>
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link to="/search">Search</Link>
           </li>
           <li>
             <Link to="/logout">Logout</Link>

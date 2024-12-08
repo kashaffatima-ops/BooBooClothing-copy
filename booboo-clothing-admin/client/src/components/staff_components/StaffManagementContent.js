@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StaffNavbar from './StaffNavbar';
 import CreateStaff from './CreateStaff';
-import ViewStaff from './ViewStaff';
-import UpdateStaff from './UpdateStaff';
-import DeleteStaff from './DeleteStaff';
+import ViewUpdateDeleteStaff from './ViewUpdateDeleteStaff';
+import axios from 'axios';
 import '../../styles/StaffManagement.css';
 
 const StaffManagementContent = () => {
   const [activeView, setActiveView] = useState('view');
   const [selectedStaff, setSelectedStaff] = useState(null);
+  const [staffList, setStaffList] = useState([]);
+
+  useEffect(() => {
+    const fetchStaff = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/staff');
+        if (response.data.success) {
+          setStaffList(response.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching staff:', error);
+      }
+    };
+
+    fetchStaff();
+  }, []);
 
   const handleNavClick = (view) => {
     setActiveView(view);
@@ -24,13 +39,9 @@ const StaffManagementContent = () => {
       case 'create':
         return <CreateStaff />;
       case 'view':
-        return <ViewStaff onStaffSelect={handleStaffSelect} />;
-      case 'update':
-        return <UpdateStaff selectedStaff={selectedStaff} />;
-      case 'delete':
-        return <DeleteStaff selectedStaff={selectedStaff} />;
+        return <ViewUpdateDeleteStaff staffList={staffList} onStaffSelect={handleStaffSelect} />;
       default:
-        return <ViewStaff onStaffSelect={handleStaffSelect} />;
+        return <ViewUpdateDeleteStaff staffList={staffList} onStaffSelect={handleStaffSelect} />;
     }
   };
 
@@ -45,4 +56,3 @@ const StaffManagementContent = () => {
 };
 
 export default StaffManagementContent;
-

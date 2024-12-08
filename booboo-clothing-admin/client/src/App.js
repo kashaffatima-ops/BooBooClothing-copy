@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import ProductManagement from "./pages/ProductManagement";
 import StaffManagement from "./pages/StaffManagement";
 import BrowseItems from "./pages/BrowseItems";
+import Search from "./pages/Search"
 import './index.css';  
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
        <Route path="/product-management" element={<ProductManagement />} />
        <Route path="/staff-management" element={<StaffManagement />} />
        <Route path="/browse-items" element={<BrowseItems />} />
+       <Route path="/search" element={<Search />} />
      </Routes>
    </div>
   );

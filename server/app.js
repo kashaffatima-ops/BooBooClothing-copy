@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes')
 const cartRoutes = require('./routes/cartRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const emailRoutes = require('./routes/emailRoutes')
+const staffRoutes = require('./routes/staffRoutes')
 dotenv.config();
 connectDB();
 const cors = require('cors');
@@ -26,6 +27,7 @@ app.use('/api/auth', userRoutes);//login and registeration routes for customer
 app.use('/api/cart',cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/newsletter', emailRoutes);
+app.use('/api/staff', staffRoutes);
 
 // Catch-all route for undefined endpoints
 app.use((req, res) => {

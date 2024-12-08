@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const CreateStaff = () => {
   const [newStaff, setNewStaff] = useState({
@@ -13,13 +14,20 @@ const CreateStaff = () => {
     setNewStaff(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log('Creating new staff member:', newStaff);
-    // Reset form after submission
-    setNewStaff({ name: '', position: '', email: '', phone: '' });
+  
+    try {
+      const response = await axios.post('http://localhost:5000/api/staff', newStaff, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error creating staff member:', error.response?.data || error.message);
+    }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -76,4 +84,3 @@ const CreateStaff = () => {
 };
 
 export default CreateStaff;
-
