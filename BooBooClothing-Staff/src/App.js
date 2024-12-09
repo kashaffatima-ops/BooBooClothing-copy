@@ -10,6 +10,7 @@ import InprocessOrders from "./Pages/InprocessOrders";
 import ShippedOrders from "./Pages/ShippedOrders";
 import DeliveredOrders from "./Pages/DeliveredOrders";
 import OrderDetails from "./components/OrderDetails/OrderDetails";
+import ProfilePage from "./Pages/Profile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/shippedorders" element={<ShippedOrders />} />
           <Route path="/deliveredorders" element={<DeliveredOrders />} />
           <Route path="/order/:orderId" element={<OrderDetails />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </div>
